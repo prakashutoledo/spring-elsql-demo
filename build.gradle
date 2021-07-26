@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		springBootVersion = '2.5.3'
+		springDependencyManagementVersion = '1.0.11.RELEASE'
+		mysqlConnectorVersion = '6.0.6'
+		flywayCoreVersion = '5.2.4'
+		opengammaElsqlVersion = '1.3'
+		commonsLang3Version = '3.12.0'
+		junitVersion = "4.12"
+	}
+}
+
+plugins {
+	id 'java'
+	id "org.springframework.boot" version "${springBootVersion}"
+	id 'io.spring.dependency-management' version "${springDependencyManagementVersion}"
+}
+
+group = 'spring.elsql'
+version = '1.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencyManagement {
+	imports {
+		// Spring JDBC and web is managed version in this bom
+		mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+	}
+}
+
+dependencies {
+	implementation "com.opengamma:elsql:${opengammaElsqlVersion}"
+	implementation "org.apache.commons:commons-lang3:${commonsLang3Version}"
+	
+	implementation "org.springframework.boot:spring-boot-starter-jdbc"
+	implementation "org.springframework.boot:spring-boot-starter-web"
+
+	
+	runtimeOnly "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+	runtimeOnly "org.flywaydb:flyway-core:${flywayCoreVersion}"
+	
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation "junit:junit:${junitVersion}"
+}
+
+test {
+	useJUnitPlatform()
+}

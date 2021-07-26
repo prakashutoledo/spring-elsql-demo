@@ -1,0 +1,41 @@
+@NAME(userFields)
+    first_name, middle_initial, last_name, email
+
+@NAME(selectUser)
+    SELECT user_id, @INCLUDE(userFields)
+
+@NAME(userFrom)
+    FROM elsql_user eu
+
+@NAME(whereUserIdFilter)
+    @WHERE
+        @AND(:user_id)
+            eu.user_id=:user_id
+
+@NAME(userFilters)
+    @WHERE
+        @AND(:firstNames)
+            eu.first_name IN (:firstNames)
+        @AND(:lastNames)
+            eu.last_name IN (:lastNames)
+        @AND(:emails)
+            eu.emails IN (:emails)
+
+@NAME(createUser)
+    INSERT INTO elsql_user (@INCLUDE(userFields))
+    VALUES (:first_name, :middle_initial, :last_name, :email)
+
+@NAME(updateUser)
+    UPDATE elsql_user eu
+    SET eu.first_name=:first_name, eu.middle_initial=:middle_initial, eu.last_name=:last_name, eu.email=:email
+    @INCLUDE(whereUserIdFilter)
+
+@NAME(findUserById)
+    @INCLUDE(selectUser)
+    @INCLUDE(userFrom)
+    @INCLUDE(whereUserIdFilter)
+
+@NAME(getUser)
+    @INCLUDE(selectUser)
+    @INCLUDE(userFrom)
+    @INCLUDE(userFilters)
