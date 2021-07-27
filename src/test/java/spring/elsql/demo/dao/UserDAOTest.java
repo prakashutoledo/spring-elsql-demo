@@ -21,7 +21,7 @@ import spring.elsql.demo.domain.User;
 import spring.elsql.demo.domain.UserGetRequest;
 
 /**
- * Message DAO test
+ * User DAO test
  * 
  * @author Prakash Khadka <br>
  *         Created on: July 25, 2021

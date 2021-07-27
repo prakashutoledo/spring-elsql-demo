@@ -18,6 +18,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import spring.elsql.demo.configuration.DAOTestConfig;
 import spring.elsql.demo.domain.Message;
 
+/**
+ * Message DAO test
+ * 
+ * @author Prakash Khadka <br>
+ *         Created on: July 25, 2021
+ *
+ * @since 1.0
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { MessageDAO.class })
 @ContextConfiguration(classes = { DAOTestConfig.class })

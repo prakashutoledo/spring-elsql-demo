@@ -46,7 +46,7 @@ class UserServiceTest {
 
     @Test
     void createUser() {
-        User user = new User();
+        var user = new User();
         user.setMessages(List.of(new Message(), new Message()));
         when(userDAO.createUser(any())).thenReturn(user);
         when(messageDAO.createMessage(any())).thenReturn(new Message());
@@ -59,7 +59,7 @@ class UserServiceTest {
 
     @Test
     void updateUser() {
-        User user = new User();
+        var user = new User();
         user.setMessages(List.of(new Message(), new Message(), new Message()));
 
         doNothing().when(userDAO).updateUser(eq(user));
