@@ -1,6 +1,6 @@
 package spring.elsql.demo.dao;
 
-import static com.opengamma.elsql.ElSqlConfig.MYSQL;
+import static com.opengamma.elsql.ElSqlConfig.*;
 
 import java.util.Optional;
 
@@ -18,33 +18,24 @@ import com.opengamma.elsql.ElSqlConfig;
 import spring.elsql.demo.domain.BaseIdDomain;
 
 /**
- * Abstract base elsql DAO for creating jdbc template
+ * Abstract elsql DAO for creating jdbc template
  * 
  * @author Prakash Khadka <br>
  *         Created on: July 25, 2021
  * 
  * @since 1.0
  */
-public abstract class BaseElSqlDAO {
+public abstract class AbstractMySqlDAO {
     private final ElSqlBundle elsqlBundle;
     protected final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public BaseElSqlDAO(DataSource datasource) {
+    public AbstractMySqlDAO(DataSource datasource) {
         this(datasource, MYSQL);
     }
 
-    public BaseElSqlDAO(DataSource datasource, ElSqlConfig elsqlConfig) {
+    public AbstractMySqlDAO(DataSource datasource, ElSqlConfig elsqlConfig) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
         this.elsqlBundle = ElSqlBundle.of(elsqlConfig, this.getClass());
-    }
-
-    /**
-     * Returns the created jdbc template using datasource and elsql config
-     * 
-     * @return a jdbc template
-     */
-    public NamedParameterJdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
     }
 
     /**
@@ -54,8 +45,8 @@ public abstract class BaseElSqlDAO {
      * @param fragmentName a fragment name to search in elsql bundle
      * @return a sql string for matching given fragment name
      */
-    public String getSqlString(String fragmentName) {
-        return this.elsqlBundle.getSql(fragmentName).trim();
+    public String toSqlString(String fragmentName) {
+        return this.elsqlBundle.getSql(fragmentName);
     }
 
     /**
@@ -67,8 +58,8 @@ public abstract class BaseElSqlDAO {
      * 
      * @return a matched sql string from given fragment name
      */
-    public String getSqlString(String fragmentName, SqlParameterSource paramSource) {
-        return this.elsqlBundle.getSql(fragmentName, paramSource).trim();
+    public String toSqlString(String fragmentName, SqlParameterSource paramSource) {
+        return this.elsqlBundle.getSql(fragmentName, paramSource);
     }
 
     /**
@@ -78,7 +69,7 @@ public abstract class BaseElSqlDAO {
      * @param value a value to substitute for given key
      * @return a newly created Spring map sql paramater source
      */
-    public MapSqlParameterSource paramSource(String key, Object value) {
+    public MapSqlParameterSource toParamSource(String key, Object value) {
         return new MapSqlParameterSource(key, value);
     }
 
@@ -95,8 +86,8 @@ public abstract class BaseElSqlDAO {
     protected <T extends BaseIdDomain> Optional<T> findById(String fragmentName, SqlParameterSource paramSource,
             RowMapper<T> rowMapper) {
         try {
-            return Optional.of(
-                    getJdbcTemplate().queryForObject(getSqlString(fragmentName, paramSource), paramSource, rowMapper));
+            return Optional
+                    .of(jdbcTemplate.queryForObject(toSqlString(fragmentName, paramSource), paramSource, rowMapper));
         } catch (DataAccessException dae) {
             return Optional.empty();
         }

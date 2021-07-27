@@ -27,7 +27,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 @ConditionalOnMissingBean(value = { Flyway.class, DataSource.class, NamedParameterJdbcTemplate.class })
 public class FlywayTestConfiguration {
     @Bean
-    public FlywayTestProperties flywayProperties() {
+    FlywayTestProperties flywayProperties() {
         return new FlywayTestProperties();
     }
 

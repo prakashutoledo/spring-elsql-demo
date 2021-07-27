@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @SpringBootApplication
 public class SpringElsqlDemoApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(SpringElsqlDemoApplication.class, args);
     }

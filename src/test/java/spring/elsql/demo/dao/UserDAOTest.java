@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -22,13 +23,14 @@ import spring.elsql.demo.domain.User;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = { UserDAO.class })
 @ContextConfiguration(classes = { DAOTestConfig.class })
-public class UserDAOTest {
+class UserDAOTest {
     @Autowired
     private UserDAO userDAO;
 
     @Test
-    public void creatUser() {
+    void creatUser() {
         User user = user("Test", "K", "User", "test@user.com");
         User created = userDAO.createUser(user);
 
@@ -39,7 +41,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void findUser() {
+    void findUser() {
         User user = userDAO.createUser(user("Second", null, "User", "second@user.com"));
         Optional<User> found = userDAO.findUserById(user.getId());
         assertTrue(found.isPresent(), "User do exists");
@@ -51,7 +53,7 @@ public class UserDAOTest {
     }
 
     @Test
-    public void updateUser() {
+    void updateUser() {
         User user = userDAO.createUser(user("Third", "T", "User", "Third@user.com"));
         userDAO.createUser(user);
         user.setFirstName("Updated");
@@ -69,7 +71,7 @@ public class UserDAOTest {
         assertEquals("updateduser@email.com", actual.getEmail(), "User email address");
     }
 
-    private User user(String firstName, String middleInitial, String lastName, String email) {
+    User user(String firstName, String middleInitial, String lastName, String email) {
         User user = new User();
         user.setFirstName(firstName);
         user.setMiddleInitial(middleInitial);

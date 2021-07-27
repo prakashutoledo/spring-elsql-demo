@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 1.0
  */
 @ConfigurationProperties(prefix = "flyway")
-public class FlywayTestProperties {
+class FlywayTestProperties {
     private String url = "jdbc:mysql://localhost:3306";
     private String user = "root";
     private String password;

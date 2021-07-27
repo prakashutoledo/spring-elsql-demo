@@ -1,10 +1,6 @@
 package spring.elsql.demo.dao.mapper;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.EMAIL;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.FIRST_NAME;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.LAST_NAME;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.MIDDLE_INITIAL;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.USER_ID;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,11 +1,7 @@
 package spring.elsql.demo.dao;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.EMAIL;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.FIRST_NAME;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.LAST_NAME;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.MIDDLE_INITIAL;
-import static spring.elsql.demo.SpringElsqlDemoGlobals.USER_ID;
-import static spring.elsql.demo.dao.mapper.UserMapper.USER_MAPPER;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
+import static spring.elsql.demo.dao.mapper.UserMapper.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +26,7 @@ import spring.elsql.demo.domain.UserGetRequest;
  * @since 1.0
  */
 @Repository
-public class UserDAO extends BaseElSqlDAO {
+public class UserDAO extends AbstractMySqlDAO {
 
     /**
      * Creates a new UserDAO object
@@ -50,12 +46,12 @@ public class UserDAO extends BaseElSqlDAO {
      * @return a newly created user
      */
     public User createUser(User user) {
-        MapSqlParameterSource params = paramSource(FIRST_NAME, user.getFirstName())
+        MapSqlParameterSource params = toParamSource(FIRST_NAME, user.getFirstName())
                 .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
                 .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        getJdbcTemplate().update(this.getSqlString("createUser", params), params, keyHolder);
+        jdbcTemplate.update(toSqlString("createUser", params), params, keyHolder);
 
         user.setId(keyHolder.getKey().longValue());
         return user;
@@ -67,10 +63,10 @@ public class UserDAO extends BaseElSqlDAO {
      * @param user a user to update is matching id is present in database
      */
     public void updateUser(User user) {
-        MapSqlParameterSource params = paramSource(USER_ID, user.getId()).addValue(FIRST_NAME, user.getFirstName())
+        MapSqlParameterSource params = toParamSource(USER_ID, user.getId()).addValue(FIRST_NAME, user.getFirstName())
                 .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
                 .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
-        getJdbcTemplate().update(getSqlString("updateUser", params), params);
+        jdbcTemplate.update(toSqlString("updateUser", params), params);
     }
 
     /**
@@ -81,10 +77,10 @@ public class UserDAO extends BaseElSqlDAO {
      * @return a list of user matching filters
      */
     public List<User> getUser(UserGetRequest request) {
-        MapSqlParameterSource params = paramSource("firstNames", request.getFirstNames())
+        MapSqlParameterSource params = toParamSource("firstNames", request.getFirstNames())
                 .addValue("lastNames", request.getLastNames()).addValue("emails", request.getEmails());
 
-        return getJdbcTemplate().query(getSqlString("getUser", params), params, USER_MAPPER);
+        return jdbcTemplate.query(toSqlString("getUser", params), params, USER_MAPPER);
     }
 
     /**
@@ -95,6 +91,6 @@ public class UserDAO extends BaseElSqlDAO {
      * @return a optional containing matching user
      */
     public Optional<User> findUserById(long id) {
-        return findById("findUserById", paramSource(USER_ID, id), USER_MAPPER);
+        return findById("findUserById", toParamSource(USER_ID, id), USER_MAPPER);
     }
 }
