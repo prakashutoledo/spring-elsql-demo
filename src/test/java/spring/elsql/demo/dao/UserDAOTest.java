@@ -38,7 +38,7 @@ class UserDAOTest {
 
     @Test
     void creatUser() {
-        User user = user("Test", "K", "User", "test@user.com");
+        var user = user("Test", "K", "User", "test@user.com");
         User created = userDAO.createUser(user);
 
         assertEquals(user.getFirstName(), created.getFirstName(), "User first name");
@@ -83,7 +83,7 @@ class UserDAOTest {
     @Test
 
     void getUserWithFilters() {
-        UserGetRequest request = new UserGetRequest();
+        var request = new UserGetRequest();
         request.setUserIds(Set.of(1L, 3L, 4L, 10L));
         request.setFirstNames(Set.of("User", "Self"));
         request.setEmails(Set.of("user@one.com", "self@three.com"));
@@ -103,6 +103,7 @@ class UserDAOTest {
     void updateUser() {
         User user = userDAO.createUser(user("Third", "T", "User", "Third@user.com"));
         userDAO.createUser(user);
+
         user.setFirstName("Updated");
         user.setMiddleInitial(null);
         user.setLastName("Last");
@@ -129,7 +130,7 @@ class UserDAOTest {
     }
 
     private User user(String firstName, String middleInitial, String lastName, String email) {
-        User user = new User();
+        var user = new User();
         user.setFirstName(firstName);
         user.setMiddleInitial(middleInitial);
         user.setLastName(lastName);

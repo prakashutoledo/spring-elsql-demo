@@ -111,7 +111,7 @@ class MessageDAOTest {
     }
 
     private Message message(long userId, String details) {
-        Message message = new Message();
+        var message = new Message();
         message.setUserId(userId);
         message.setDetails(details);
 

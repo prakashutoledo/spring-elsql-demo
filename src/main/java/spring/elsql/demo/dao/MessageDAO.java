@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import spring.elsql.demo.domain.Message;
@@ -44,7 +43,7 @@ public class MessageDAO extends AbstractMySqlDAO {
      * @return a newly created Message
      */
     public Message createMessage(Message message) {
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+        var keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource params = toParamSource(USER_ID, message.getUserId()).addValue(MESSAGE_DETAILS,
                 message.getDetails());
         jdbcTemplate.update(toSqlString("createMessage", params), params, keyHolder);

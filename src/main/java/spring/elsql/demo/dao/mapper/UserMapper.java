@@ -22,7 +22,7 @@ public class UserMapper implements RowMapper<User> {
 
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-        User user = new User();
+        var user = new User();
         user.setId(rs.getLong(USER_ID));
         user.setFirstName(rs.getString(FIRST_NAME));
         user.setMiddleInitial(rs.getString(MIDDLE_INITIAL));

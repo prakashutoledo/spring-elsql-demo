@@ -11,7 +11,6 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import spring.elsql.demo.domain.User;
@@ -50,7 +49,7 @@ public class UserDAO extends AbstractMySqlDAO {
                 .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
                 .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+        var keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(toSqlString("createUser", params), params, keyHolder);
 
         user.setId(keyHolder.getKey().longValue());
