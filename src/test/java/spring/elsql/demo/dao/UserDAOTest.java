@@ -21,7 +21,7 @@ import spring.elsql.demo.domain.User;
 import spring.elsql.demo.domain.UserGetRequest;
 
 /**
- * User DAO test
+ * Message DAO test
  * 
  * @author Prakash Khadka <br>
  *         Created on: July 25, 2021
@@ -67,7 +67,7 @@ class UserDAOTest {
     @Test
     void getUserWithoutFilters() {
         List<User> users = userDAO.getUser(null);
-        assertNotNull(users, "User is not null value");
+        assertNotNull(users, "Users is not null value");
         assertEquals(3, users.size(), "User list size");
         assertThat(users, contains(allOf(hasProperty("id", is(equalTo(1L))),
                 hasProperty("firstName", is(equalTo("User"))), hasProperty("lastName", is(equalTo("One"))),
@@ -116,6 +116,16 @@ class UserDAOTest {
         assertNull(actual.getMiddleInitial(), "User middle initial");
         assertEquals("Last", actual.getLastName(), "User last name");
         assertEquals("updateduser@email.com", actual.getEmail(), "User email address");
+    }
+
+    @Test
+    void deleteUserById() {
+        // Before delete
+        assertTrue(userDAO.findUserById(1L).isPresent(), "User with id:1 is present");
+
+        userDAO.deleteUserById(1L);
+        // After delete
+        assertTrue(userDAO.findUserById(1L).isEmpty(), "User with id:1 doesnt exist");
     }
 
     private User user(String firstName, String middleInitial, String lastName, String email) {

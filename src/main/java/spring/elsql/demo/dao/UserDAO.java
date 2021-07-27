@@ -81,7 +81,6 @@ public class UserDAO extends AbstractMySqlDAO {
         MapSqlParameterSource params = toParamSource("userIds", request.getUserIds())
                 .addValue("firstNames", request.getFirstNames()).addValue("lastNames", request.getLastNames())
                 .addValue("emails", request.getEmails());
-        System.out.println(toSqlString("getUser", params));
         return jdbcTemplate.query(toSqlString("getUser", params), params, USER_MAPPER);
     }
 
@@ -94,5 +93,15 @@ public class UserDAO extends AbstractMySqlDAO {
      */
     public Optional<User> findUserById(long id) {
         return findById("findUserById", toParamSource(USER_ID, id), USER_MAPPER);
+    }
+
+    /**
+     * Delete user by given userId
+     * 
+     * @param userId a user id to delete
+     */
+    public void deleteUserById(long userId) {
+        MapSqlParameterSource params = toParamSource(USER_ID, userId);
+        jdbcTemplate.update(toSqlString("deleteUserById", params), params);
     }
 }

@@ -1,0 +1,38 @@
+@NAME(messageFields)
+    user_id, message_details
+    
+@NAME(selectMessage)
+    SELECT message_id, @INCLUDE(messageFields)
+
+@NAME(messageFrom)
+    FROM user_message
+
+@NAME(messageFilters)
+    @WHERE
+        @AND(:message_id)
+            message_id = :message_id
+        @AND(:user_id)
+            user_id = :user_id
+
+@NAME(createMessage)
+    INSERT INTO user_message (@INCLUDE(messageFields))
+    VALUES (:user_id, :message_details)
+
+@NAME(updateMessage)
+    UPDATE user_message
+    SET message_details = :message_details
+    @INCLUDE(messageFilters)
+    
+@NAME(findMessageById)
+    @INCLUDE(selectMessage)
+    @INCLUDE(messageFrom)
+    @INCLUDE(messageFilters)
+    
+@NAME(getMessageByUser)
+    @INCLUDE(selectMessage)
+    @INCLUDE(messageFrom)
+    @INCLUDE(messageFilters)
+
+@NAME(deleteMessageByUser)
+    DELETE @INCLUDE(messageFrom)
+    @INCLUDE(messageFilters)
