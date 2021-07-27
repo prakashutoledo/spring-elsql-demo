@@ -12,8 +12,8 @@ import org.springframework.context.annotation.PropertySource;
  * @since 1.0
  */
 @ComponentScan(value = "spring.elsql.demo.dao")
-@PropertySource(value = "classpath:/config/test.properties")
-@PropertySource(value = "classpath:/config/test.properties.ignore", ignoreResourceNotFound = true)
+@PropertySource(value = "classpath:/test.properties")
+@PropertySource(value = "classpath:/test.properties.ignore", ignoreResourceNotFound = true)
 @FlywayDataSourceTest
 public class DAOTestConfig {
 }

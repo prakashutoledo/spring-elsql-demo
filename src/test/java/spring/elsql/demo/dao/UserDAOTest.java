@@ -71,7 +71,7 @@ class UserDAOTest {
         assertEquals("updateduser@email.com", actual.getEmail(), "User email address");
     }
 
-    User user(String firstName, String middleInitial, String lastName, String email) {
+    private User user(String firstName, String middleInitial, String lastName, String email) {
         User user = new User();
         user.setFirstName(firstName);
         user.setMiddleInitial(middleInitial);
