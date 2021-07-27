@@ -77,9 +77,11 @@ public class UserDAO extends AbstractMySqlDAO {
      * @return a list of user matching filters
      */
     public List<User> getUser(UserGetRequest request) {
-        MapSqlParameterSource params = toParamSource("firstNames", request.getFirstNames())
-                .addValue("lastNames", request.getLastNames()).addValue("emails", request.getEmails());
-
+        request = Optional.ofNullable(request).orElseGet(() -> new UserGetRequest());
+        MapSqlParameterSource params = toParamSource("userIds", request.getUserIds())
+                .addValue("firstNames", request.getFirstNames()).addValue("lastNames", request.getLastNames())
+                .addValue("emails", request.getEmails());
+        System.out.println(toSqlString("getUser", params));
         return jdbcTemplate.query(toSqlString("getUser", params), params, USER_MAPPER);
     }
 

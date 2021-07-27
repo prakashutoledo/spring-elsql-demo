@@ -14,12 +14,14 @@
 
 @NAME(userFilters)
     @WHERE
+        @AND(:userIds)
+            eu.user_id IN (:userIds)
         @AND(:firstNames)
             eu.first_name IN (:firstNames)
         @AND(:lastNames)
             eu.last_name IN (:lastNames)
         @AND(:emails)
-            eu.emails IN (:emails)
+            eu.email IN (:emails)
 
 @NAME(createUser)
     INSERT INTO elsql_user (@INCLUDE(userFields))

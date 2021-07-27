@@ -1,18 +1,24 @@
 package spring.elsql.demo.dao;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import spring.elsql.demo.configuration.DAOTestConfig;
 import spring.elsql.demo.domain.User;
+import spring.elsql.demo.domain.UserGetRequest;
 
 /**
  * User DAO test
@@ -25,6 +31,7 @@ import spring.elsql.demo.domain.User;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = { UserDAO.class })
 @ContextConfiguration(classes = { DAOTestConfig.class })
+@Sql({ "classpath:/spring/elsql/demo/dao/CleanUp.sql", "classpath:/spring/elsql/demo/dao/TestUser.sql" })
 class UserDAOTest {
     @Autowired
     private UserDAO userDAO;
@@ -50,6 +57,46 @@ class UserDAOTest {
         assertNull(actual.getMiddleInitial(), "User middle initial");
         assertEquals("User", actual.getLastName(), "User last name");
         assertEquals("second@user.com", actual.getEmail(), "User email address");
+    }
+
+    @Test
+    void findUserNotFound() {
+        assertTrue(userDAO.findUserById(10000).isEmpty(), "User with id:1000 doesnt exist");
+    }
+
+    @Test
+    void getUserWithoutFilters() {
+        List<User> users = userDAO.getUser(null);
+        assertNotNull(users, "User is not null value");
+        assertEquals(3, users.size(), "User list size");
+        assertThat(users, contains(allOf(hasProperty("id", is(equalTo(1L))),
+                hasProperty("firstName", is(equalTo("User"))), hasProperty("lastName", is(equalTo("One"))),
+                hasProperty("middleInitial", is(nullValue())), hasProperty("email", is(equalTo("user@one.com")))),
+                allOf(hasProperty("id", is(equalTo(2L))), hasProperty("firstName", is(equalTo("Test"))),
+                        hasProperty("lastName", is(equalTo("Two"))), hasProperty("middleInitial", is(equalTo("A"))),
+                        hasProperty("email", is(equalTo("test@two.com")))),
+                allOf(hasProperty("id", is(equalTo(10L))), hasProperty("firstName", is(equalTo("Self"))),
+                        hasProperty("lastName", is(equalTo("Three"))), hasProperty("middleInitial", is(equalTo("S"))),
+                        hasProperty("email", is(equalTo("self@three.com"))))));
+    }
+
+    @Test
+
+    void getUserWithFilters() {
+        UserGetRequest request = new UserGetRequest();
+        request.setUserIds(Set.of(1L, 3L, 4L, 10L));
+        request.setFirstNames(Set.of("User", "Self"));
+        request.setEmails(Set.of("user@one.com", "self@three.com"));
+
+        List<User> users = userDAO.getUser(request);
+        assertNotNull(users, "User is not null value");
+        assertEquals(2, users.size(), "User list size");
+        assertThat(users, contains(allOf(hasProperty("id", is(equalTo(1L))),
+                hasProperty("firstName", is(equalTo("User"))), hasProperty("lastName", is(equalTo("One"))),
+                hasProperty("middleInitial", is(nullValue())), hasProperty("email", is(equalTo("user@one.com")))),
+                allOf(hasProperty("id", is(equalTo(10L))), hasProperty("firstName", is(equalTo("Self"))),
+                        hasProperty("lastName", is(equalTo("Three"))), hasProperty("middleInitial", is(equalTo("S"))),
+                        hasProperty("email", is(equalTo("self@three.com"))))));
     }
 
     @Test

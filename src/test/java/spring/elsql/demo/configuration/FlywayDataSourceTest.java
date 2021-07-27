@@ -20,5 +20,4 @@ import org.springframework.context.annotation.Import;
 @Target(TYPE)
 @Import(FlywayTestConfiguration.class)
 @interface FlywayDataSourceTest {
-
 }

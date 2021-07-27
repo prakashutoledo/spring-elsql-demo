@@ -13,5 +13,4 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:/test.properties")
 @PropertySource(value = "classpath:/test.properties.ignore", ignoreResourceNotFound = true)
 public class TestPropertiesConfig {
-
 }
