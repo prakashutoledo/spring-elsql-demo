@@ -13,54 +13,54 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @since 1.0
  */
 public class User extends BaseIdDomain {
-	private String firstName;
-	private String middleInitial;
-	private String lastName;
-	private String email;
-	private List<Message> messages;
+    private String firstName;
+    private String middleInitial;
+    private String lastName;
+    private String email;
+    private List<Message> messages;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getMiddleInitial() {
-		return middleInitial;
-	}
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
 
-	public void setMiddleInitial(String middleInitial) {
-		this.middleInitial = middleInitial;
-	}
+    public void setMiddleInitial(String middleInitial) {
+        this.middleInitial = middleInitial;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public List<Message> getMessages() {
-		return messages;
-	}
+    public List<Message> getMessages() {
+        return messages;
+    }
 
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
-	}
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
-	}
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+    }
 }

@@ -22,16 +22,16 @@ import spring.elsql.demo.domain.User;
  * @since 1.0
  */
 public class UserMapper implements RowMapper<User> {
-	public static final UserMapper USER_MAPPER = new UserMapper();
+    public static final UserMapper USER_MAPPER = new UserMapper();
 
-	@Override
-	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-		User user = new User();
-		user.setId(rs.getLong(USER_ID));
-		user.setFirstName(rs.getString(FIRST_NAME));
-		user.setMiddleInitial(rs.getString(MIDDLE_INITIAL));
-		user.setLastName(rs.getString(LAST_NAME));
-		user.setEmail(rs.getString(EMAIL));
-		return user;
-	}
+    @Override
+    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+        User user = new User();
+        user.setId(rs.getLong(USER_ID));
+        user.setFirstName(rs.getString(FIRST_NAME));
+        user.setMiddleInitial(rs.getString(MIDDLE_INITIAL));
+        user.setLastName(rs.getString(LAST_NAME));
+        user.setEmail(rs.getString(EMAIL));
+        return user;
+    }
 }

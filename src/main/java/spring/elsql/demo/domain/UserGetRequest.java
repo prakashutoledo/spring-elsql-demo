@@ -13,45 +13,45 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @since 1.0
  */
 public class UserGetRequest {
-	private Set<Long> userIds;
-	private Set<String> firstNames;
-	private Set<String> lastNames;
-	private Set<String> emails;
+    private Set<Long> userIds;
+    private Set<String> firstNames;
+    private Set<String> lastNames;
+    private Set<String> emails;
 
-	public Set<Long> getUserIds() {
-		return userIds;
-	}
+    public Set<Long> getUserIds() {
+        return userIds;
+    }
 
-	public void setUserIds(Set<Long> userIds) {
-		this.userIds = userIds;
-	}
+    public void setUserIds(Set<Long> userIds) {
+        this.userIds = userIds;
+    }
 
-	public Set<String> getFirstNames() {
-		return firstNames;
-	}
+    public Set<String> getFirstNames() {
+        return firstNames;
+    }
 
-	public void setFirstNames(Set<String> firstNames) {
-		this.firstNames = firstNames;
-	}
+    public void setFirstNames(Set<String> firstNames) {
+        this.firstNames = firstNames;
+    }
 
-	public Set<String> getLastNames() {
-		return lastNames;
-	}
+    public Set<String> getLastNames() {
+        return lastNames;
+    }
 
-	public void setLastNames(Set<String> lastNames) {
-		this.lastNames = lastNames;
-	}
+    public void setLastNames(Set<String> lastNames) {
+        this.lastNames = lastNames;
+    }
 
-	public Set<String> getEmails() {
-		return emails;
-	}
+    public Set<String> getEmails() {
+        return emails;
+    }
 
-	public void setEmails(Set<String> emails) {
-		this.emails = emails;
-	}
+    public void setEmails(Set<String> emails) {
+        this.emails = emails;
+    }
 
-	@Override
-	public String toString() {
-		return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
-	}
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+    }
 }

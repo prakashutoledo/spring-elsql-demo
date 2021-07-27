@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication
 public class SpringElsqlDemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringElsqlDemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringElsqlDemoApplication.class, args);
+    }
 }
