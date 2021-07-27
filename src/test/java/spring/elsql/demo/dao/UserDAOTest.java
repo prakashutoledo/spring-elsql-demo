@@ -12,30 +12,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import spring.dao.demo.domain.User;
 import spring.elsql.demo.configuration.DAOTestConfig;
+import spring.elsql.demo.domain.User;
 
+/**
+ * User DAO test
+ * 
+ * @author Prakash Khadka <br>
+ *         Created on: July 25, 2021
+ *
+ * @since 1.0
+ */
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {DAOTestConfig.class})
+@ContextConfiguration(classes = { DAOTestConfig.class })
 public class UserDAOTest {
 	@Autowired
 	private UserDAO userDAO;
-	
+
 	@Test
 	public void creatUser() {
 		User user = user("Test", "K", "User", "test@user.com");
 		User created = userDAO.createUser(user);
-		
+
 		assertEquals(user.getFirstName(), created.getFirstName(), "User first name");
 		assertEquals(user.getMiddleInitial(), created.getMiddleInitial(), "User middle initial");
 		assertEquals(user.getLastName(), created.getLastName(), "User last name");
 		assertEquals(user.getEmail(), created.getEmail(), "User email address");
 	}
-	
-	@Test 
+
+	@Test
 	public void findUser() {
 		User user = userDAO.createUser(user("Second", null, "User", "second@user.com"));
-		Optional<User> found =  userDAO.findUserById(user.getId());
+		Optional<User> found = userDAO.findUserById(user.getId());
 		assertTrue(found.isPresent(), "User do exists");
 		User actual = found.get();
 		assertEquals("Second", actual.getFirstName(), "User first name");
@@ -43,19 +51,19 @@ public class UserDAOTest {
 		assertEquals("User", actual.getLastName(), "User last name");
 		assertEquals("second@user.com", actual.getEmail(), "User email address");
 	}
-	
+
 	@Test
 	public void updateUser() {
 		User user = userDAO.createUser(user("Third", "T", "User", "Third@user.com"));
 		userDAO.createUser(user);
-		
+
 		user.setFirstName("Updated");
 		user.setMiddleInitial(null);
 		user.setLastName("Last");
 		user.setEmail("updateduser@email.com");
 		userDAO.updateUser(user);
-		
-		Optional<User> found =  userDAO.findUserById(user.getId());
+
+		Optional<User> found = userDAO.findUserById(user.getId());
 		assertTrue(found.isPresent(), "User do exists");
 		User actual = found.get();
 		assertEquals("Updated", actual.getFirstName(), "User first name");
@@ -63,7 +71,7 @@ public class UserDAOTest {
 		assertEquals("Last", actual.getLastName(), "User last name");
 		assertEquals("updateduser@email.com", actual.getEmail(), "User email address");
 	}
-	
+
 	private User user(String firstName, String middleInitial, String lastName, String email) {
 		User user = new User();
 		user.setFirstName(firstName);

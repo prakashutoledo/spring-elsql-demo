@@ -1,9 +1,9 @@
-package spring.dao.demo.domain;
+package spring.elsql.demo.domain;
 
 /**
  * Base domain with id details
- * 
- * @author Prakash Khadka
+ *
+ * @author Prakash Khadka <br>
  *         Created on: July 25, 2021
  * @since 1.0
  */

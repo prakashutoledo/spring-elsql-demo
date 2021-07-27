@@ -6,7 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * DAO test config
  * 
- * @author Prakash Khadka
+ * @author Prakash Khadka <br>
  *         Created on: July 25, 2021
  * 
  * @since 1.0
@@ -16,5 +16,4 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = "classpath:/config/test.properties.ignore", ignoreResourceNotFound = true)
 @FlywayDataSourceTest
 public class DAOTestConfig {
-
 }

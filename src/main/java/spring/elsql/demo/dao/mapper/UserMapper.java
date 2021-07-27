@@ -1,25 +1,29 @@
 package spring.elsql.demo.dao.mapper;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.EMAIL;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.FIRST_NAME;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.LAST_NAME;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.MIDDLE_INITIAL;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.USER_ID;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import spring.dao.demo.domain.User;
+import spring.elsql.demo.domain.User;
 
 /**
- * Result row mapper for {@link User} 
+ * Result row mapper for {@link User}
  * 
- * @author Prakash Khadka
- *         Created On: July 25, 2021
- *         
+ * @author Prakash Khadka <br>
+ *         Created on: July 25, 2021
+ * 
  * @since 1.0
  */
 public class UserMapper implements RowMapper<User> {
 	public static final UserMapper USER_MAPPER = new UserMapper();
-	
+
 	@Override
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		User user = new User();

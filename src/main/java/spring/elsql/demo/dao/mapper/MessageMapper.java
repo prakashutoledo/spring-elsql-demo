@@ -1,24 +1,26 @@
 package spring.elsql.demo.dao.mapper;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.MESSAGE_DETAILS;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.MESSAGE_ID;
+import static spring.elsql.demo.SpringElsqlDemoGlobals.USER_ID;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import spring.dao.demo.domain.Message;
+import spring.elsql.demo.domain.Message;
 
 /**
- * Result row mapper for {@link Message} 
+ * Result row mapper for {@link Message}
  * 
- * @author Prakash Khadka
- *         Created On: July 25, 2021
- *         
+ * @author Prakash Khadka Created On: July 25, 2021
+ * 
  * @since 1.0
  */
 public class MessageMapper implements RowMapper<Message> {
-	public static final MessageMapper MESSAGE_MAPPER =  new MessageMapper();
-	
+	public static final MessageMapper MESSAGE_MAPPER = new MessageMapper();
+
 	@Override
 	public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Message message = new Message();
