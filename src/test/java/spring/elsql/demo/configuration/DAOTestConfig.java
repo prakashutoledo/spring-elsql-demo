@@ -1,8 +1,5 @@
 package spring.elsql.demo.configuration;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.PropertySource;
-
 /**
  * DAO test config
  * 
@@ -11,9 +8,6 @@ import org.springframework.context.annotation.PropertySource;
  * 
  * @since 1.0
  */
-@ComponentScan(value = "spring.elsql.demo.dao")
-@PropertySource(value = "classpath:/test.properties")
-@PropertySource(value = "classpath:/test.properties.ignore", ignoreResourceNotFound = true)
 @FlywayDataSourceTest
-public class DAOTestConfig {
+public class DAOTestConfig extends TestPropertiesConfig {
 }

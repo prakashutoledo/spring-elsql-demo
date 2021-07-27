@@ -33,10 +33,10 @@ public class FlywayTestConfiguration {
 
     @Bean(destroyMethod = "clean")
     public Flyway Flyway(FlywayTestProperties flywayProperties) {
-        String uniqueTestSchemaName = String.format("%s_%d", flywayProperties.getSchema(), System.currentTimeMillis());
+        String flywaySchemaName = String.format("%s_%d", flywayProperties.getSchema(), System.currentTimeMillis());
         Flyway flyway = Flyway.configure()
                 .dataSource(flywayProperties.getUrl(), flywayProperties.getUser(), flywayProperties.getPassword())
-                .schemas(uniqueTestSchemaName).placeholders(Map.of("schema", uniqueTestSchemaName)).load();
+                .schemas(flywaySchemaName).placeholders(Map.of("schema", flywaySchemaName)).load();
         flyway.migrate();
         return flyway;
     }
