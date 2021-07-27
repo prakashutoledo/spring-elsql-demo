@@ -13,7 +13,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.opengamma.elsql.ElSqlBundle;
-import com.opengamma.elsql.ElSqlConfig;
 
 import spring.elsql.demo.domain.BaseIdDomain;
 
@@ -30,12 +29,8 @@ public abstract class AbstractMySqlDAO {
     protected final NamedParameterJdbcTemplate jdbcTemplate;
 
     public AbstractMySqlDAO(DataSource datasource) {
-        this(datasource, MYSQL);
-    }
-
-    public AbstractMySqlDAO(DataSource datasource, ElSqlConfig elsqlConfig) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
-        this.elsqlBundle = ElSqlBundle.of(elsqlConfig, this.getClass());
+        this.elsqlBundle = ElSqlBundle.of(MYSQL, this.getClass());
     }
 
     /**

@@ -31,8 +31,8 @@ public class MessageDAO extends AbstractMySqlDAO {
      * @param dataSource a dataSource to set
      */
     @Autowired
-    public MessageDAO(DataSource datasource) {
-        super(datasource);
+    public MessageDAO(DataSource dataSource) {
+        super(dataSource);
     }
 
     /**
