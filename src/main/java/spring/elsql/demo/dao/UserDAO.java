@@ -45,7 +45,7 @@ public class UserDAO extends AbstractMySqlDAO {
      * 
      * @return a newly created user
      */
-    public User createUser(User user) {
+    public User createUser(final User user) {
         MapSqlParameterSource params = toParamSource(FIRST_NAME, user.getFirstName())
                 .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
                 .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
