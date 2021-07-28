@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import spring.elsql.demo.dao.MessageDAO;
 import spring.elsql.demo.dao.UserDAO;
+import spring.elsql.demo.domain.Message;
 import spring.elsql.demo.domain.User;
 import spring.elsql.demo.domain.UserGetRequest;
 
@@ -36,10 +37,8 @@ public class UserService {
      */
     public void createUser(final User user) {
         final User newUser = userDAO.createUser(user);
-        newUser.getMessages().stream().map(message -> {
-            message.setId(newUser.getId());
-            return message;
-        }).forEach(messageDAO::createMessage);
+        newUser.getMessages().stream().map(message -> includeUserId(message, user.getId()))
+                .forEach(messageDAO::createMessage);
     }
 
     /**
@@ -88,6 +87,11 @@ public class UserService {
     private User includeMessage(User user) {
         user.setMessages(messageDAO.getMessageByUser(user.getId()));
         return user;
+    }
+
+    private Message includeUserId(Message message, long userId) {
+        message.setUserId(userId);
+        return message;
     }
 
     private void deleteUserAndMessage(User user) {
