@@ -98,6 +98,7 @@ class MessageDAOTest {
         created.setDetails("This is updated message details");
         messageDAO.updateMessage(created);
         Optional<Message> found = messageDAO.findMessageById(created.getId());
+        assertTrue(found.isPresent(), "Message do exist");
 
         Message foundMessage = found.get();
         assertEquals(3L, foundMessage.getUserId(), "Message user id");

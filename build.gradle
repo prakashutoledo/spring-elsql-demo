@@ -47,6 +47,10 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
 }
 
+bootRun {
+    systemProperties = ['spring.config.additional-location':'classpath:/application.properties,classpath:/application.ignore.properties']
+}
+
 test {
     useJUnitPlatform()
 }

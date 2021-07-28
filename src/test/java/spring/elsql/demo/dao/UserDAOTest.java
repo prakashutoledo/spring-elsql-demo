@@ -101,7 +101,7 @@ class UserDAOTest {
 
     @Test
     void updateUser() {
-        User user = userDAO.createUser(user("Third", "T", "User", "Third@user.com"));
+        User user = userDAO.createUser(user("Third", "T", "User1", "Third@user.com"));
         userDAO.createUser(user);
 
         user.setFirstName("Updated");

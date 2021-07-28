@@ -24,6 +24,7 @@ bin/
 *.ipr
 ### local files ###
 *.ignore
+*.ignore.properties
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
