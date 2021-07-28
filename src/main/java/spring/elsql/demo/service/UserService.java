@@ -59,10 +59,8 @@ public class UserService {
      * @return a matching user if present otherwise throw illegal argument exception
      */
     public User findUserById(long userId) {
-        return userDAO.findUserById(userId).map(user -> {
-            user.setMessages(messageDAO.getMessageByUser(userId));
-            return user;
-        }).orElseThrow(() -> new IllegalArgumentException(String.format("User with id: %d not found", userId)));
+        return userDAO.findUserById(userId).map(this::includeMessage)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("User with id: %d not found", userId)));
     }
 
     /**
@@ -72,10 +70,7 @@ public class UserService {
      * @return a list of user matching the request
      */
     public List<User> getUser(UserGetRequest request) {
-        return userDAO.getUser(request).stream().map(user -> {
-            user.setMessages(messageDAO.getMessageByUser(user.getId()));
-            return user;
-        }).collect(Collectors.toList());
+        return userDAO.getUser(request).stream().map(this::includeMessage).collect(Collectors.toList());
     }
 
     /**
@@ -85,11 +80,18 @@ public class UserService {
      * @param userId an user id to delete for
      */
     public void deleteUserById(long userId) {
-        userDAO.findUserById(userId).ifPresentOrElse(user -> {
-            userDAO.deleteUserById(userId);
-            messageDAO.deleteMessageByUser(userId);
-        }, () -> {
+        userDAO.findUserById(userId).ifPresentOrElse(this::deleteUserAndMessage, () -> {
             throw new IllegalArgumentException(String.format("Unable to delete user: %d", userId));
         });
+    }
+
+    private User includeMessage(User user) {
+        user.setMessages(messageDAO.getMessageByUser(user.getId()));
+        return user;
+    }
+
+    private void deleteUserAndMessage(User user) {
+        userDAO.deleteUserById(user.getId());
+        messageDAO.deleteMessageByUser(user.getId());
     }
 }
