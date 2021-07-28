@@ -17,6 +17,9 @@ import spring.elsql.demo.domain.Message;
  * @since 1.0
  */
 public class MessageMapper implements RowMapper<Message> {
+    /**
+     * A singleton message mapper
+     */
     public static final MessageMapper MESSAGE_MAPPER = new MessageMapper();
 
     @Override

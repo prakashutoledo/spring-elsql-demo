@@ -28,7 +28,11 @@ public abstract class AbstractMySqlDAO {
     private final ElSqlBundle elsqlBundle;
     protected final NamedParameterJdbcTemplate jdbcTemplate;
 
-    public AbstractMySqlDAO(DataSource datasource) {
+    /**
+     * Constructor for creating a elsql and jdbcTemplate
+     * @param datasource a dataSource to set for jdbcTemplate
+     */
+    protected AbstractMySqlDAO(DataSource datasource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
         this.elsqlBundle = ElSqlBundle.of(MYSQL, this.getClass());
     }

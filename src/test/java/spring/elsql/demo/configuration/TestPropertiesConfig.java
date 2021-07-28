@@ -1,5 +1,6 @@
 package spring.elsql.demo.configuration;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.PropertySource;
  * 
  * @since 1.0
  */
+@Configuration
 @PropertySource(value = "classpath:/test.properties")
 @PropertySource(value = "classpath:/test.ignore.properties", ignoreResourceNotFound = true)
 public class TestPropertiesConfig {

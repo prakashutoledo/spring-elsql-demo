@@ -24,11 +24,14 @@ import spring.elsql.demo.domain.UserGetRequest;
 @Service
 @Transactional
 public class UserService {
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+    private final MessageDAO messageDAO;
 
     @Autowired
-    private MessageDAO messageDAO;
+    public UserService(UserDAO userDAO, MessageDAO messageDAO) {
+        this.userDAO = userDAO;
+        this.messageDAO = messageDAO;
+    }
 
     /**
      * First create a new user and creates all the messages within user
