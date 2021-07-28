@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import spring.elsql.demo.dao.AbstractMySqlDAO;
 import spring.elsql.demo.dao.MessageDAO;
 import spring.elsql.demo.dao.UserDAO;
 import spring.elsql.demo.domain.Message;
@@ -39,6 +40,7 @@ public class UserService {
      * @param user a user to create
      */
     public void createUser(final User user) {
+
         final User newUser = userDAO.createUser(user);
         newUser.getMessages().stream().map(message -> includeUserId(message, user.getId()))
                 .forEach(messageDAO::createMessage);

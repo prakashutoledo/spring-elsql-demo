@@ -1,9 +1,10 @@
 package spring.elsql.demo.dao;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
+import static spring.elsql.demo.dao.ElSqlDAOGlobals.*;
 import static spring.elsql.demo.dao.mapper.MessageMapper.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.sql.DataSource;
@@ -47,12 +48,12 @@ public class MessageDAO extends AbstractMySqlDAO {
         MapSqlParameterSource params = toParamSource(USER_ID, message.getUserId()).addValue(MESSAGE_DETAILS,
                 message.getDetails());
         jdbcTemplate.update(toSqlString("createMessage", params), params, keyHolder);
-        message.setId(keyHolder.getKey().longValue());
+        message.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
         return message;
     }
 
     /**
-     * Update messafe based on message id and user id
+     * Update message based on message id and user id
      * 
      * @param message a message to update is matching message and user id is present
      *                in database

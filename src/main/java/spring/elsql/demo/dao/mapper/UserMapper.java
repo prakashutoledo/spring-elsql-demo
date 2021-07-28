@@ -1,6 +1,7 @@
 package spring.elsql.demo.dao.mapper;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
+
+import static spring.elsql.demo.dao.ElSqlDAOGlobals.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

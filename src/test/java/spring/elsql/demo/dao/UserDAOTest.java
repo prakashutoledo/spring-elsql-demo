@@ -29,7 +29,6 @@ import spring.elsql.demo.domain.UserGetRequest;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { UserDAO.class })
 @ContextConfiguration(classes = { DAOTestConfig.class })
 @Sql({ "classpath:/spring/elsql/demo/dao/CleanUp.sql", "classpath:/spring/elsql/demo/dao/TestUser.sql" })
 class UserDAOTest {

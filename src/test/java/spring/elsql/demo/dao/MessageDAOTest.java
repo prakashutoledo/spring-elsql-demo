@@ -27,7 +27,6 @@ import spring.elsql.demo.domain.Message;
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = { MessageDAO.class })
 @ContextConfiguration(classes = { DAOTestConfig.class })
 @Sql({ "classpath:/spring/elsql/demo/dao/CleanUp.sql", "classpath:/spring/elsql/demo/dao/TestMessage.sql" })
 class MessageDAOTest {

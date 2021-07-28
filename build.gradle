@@ -47,6 +47,14 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
 }
 
+jar {
+    exclude "*.sample"
+}
+
+bootJar {
+    exclude "*.sample"
+}
+
 bootRun {
     systemProperties = ['spring.config.additional-location':'classpath:/application.properties,classpath:/application.ignore.properties']
 }

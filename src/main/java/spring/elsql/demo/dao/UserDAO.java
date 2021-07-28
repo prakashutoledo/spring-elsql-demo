@@ -1,9 +1,10 @@
 package spring.elsql.demo.dao;
 
-import static spring.elsql.demo.SpringElsqlDemoGlobals.*;
+import static spring.elsql.demo.dao.ElSqlDAOGlobals.*;
 import static spring.elsql.demo.dao.mapper.UserMapper.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.sql.DataSource;
@@ -52,7 +53,7 @@ public class UserDAO extends AbstractMySqlDAO {
         var keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(toSqlString("createUser", params), params, keyHolder);
 
-        user.setId(keyHolder.getKey().longValue());
+        user.setId(Objects.requireNonNull(keyHolder.getKey()).longValue());
         return user;
     }
 
@@ -61,7 +62,7 @@ public class UserDAO extends AbstractMySqlDAO {
      * 
      * @param user a user to update is matching id is present in database
      */
-    public void updateUser(User user) {
+    public void updateUser(final User user) {
         MapSqlParameterSource params = toParamSource(USER_ID, user.getId()).addValue(FIRST_NAME, user.getFirstName())
                 .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
                 .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
@@ -76,7 +77,7 @@ public class UserDAO extends AbstractMySqlDAO {
      * @return a list of user matching filters
      */
     public List<User> getUser(UserGetRequest request) {
-        request = Optional.ofNullable(request).orElseGet(() -> new UserGetRequest());
+        request = Optional.ofNullable(request).orElseGet(UserGetRequest::new);
         MapSqlParameterSource params = toParamSource("userIds", request.getUserIds())
                 .addValue("firstNames", request.getFirstNames()).addValue("lastNames", request.getLastNames())
                 .addValue("emails", request.getEmails());

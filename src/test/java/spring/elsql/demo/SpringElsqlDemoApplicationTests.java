@@ -3,6 +3,7 @@ package spring.elsql.demo;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -17,7 +18,10 @@ class SpringElsqlDemoApplicationTests {
 
     @Test
     void contextLoads() {
-        mockStatic(SpringApplication.class);
-        SpringElsqlDemoApplication.main(new String[] { "test" });
+        try(var mockedSpring = mockStatic(SpringApplication.class)) {
+            var args = new String[] { "test" };
+            SpringElsqlDemoApplication.main(args);
+            mockedSpring.verify(() -> SpringApplication.run(SpringElsqlDemoApplication.class, args));
+        }
     }
 }
