@@ -14,5 +14,5 @@ import spring.elsql.demo.dao.MessageDAO;
  */
 @ComponentScan(basePackageClasses = { MessageDAO.class })
 @FlywayDataSourceTest
-public class DAOTestConfig extends TestPropertiesConfig {
+public class DAOTestConfig {
 }
