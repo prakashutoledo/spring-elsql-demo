@@ -3,7 +3,8 @@ package spring.elsql.demo.dao;
 /**
  * Globals constant used for DAO classes
  *
- * @author Prakash Khadka Created on: July 28, 2021
+ * @author Prakash Khadka <br>
+ *         Created on: July 28, 2021
  * @since 1.0
  */
 public final class ElSqlDAOGlobals {
