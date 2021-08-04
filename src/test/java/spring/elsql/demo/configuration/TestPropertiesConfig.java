@@ -1,5 +1,7 @@
 package spring.elsql.demo.configuration;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
@@ -11,8 +13,12 @@ import org.springframework.context.annotation.PropertySource;
  * 
  * @since 1.0
  */
-@Configuration
+@EnableConfigurationProperties(FlywayTestProperties.class)
 @PropertySource(value = "classpath:/test.properties")
 @PropertySource(value = "classpath:/test.ignore.properties", ignoreResourceNotFound = true)
-public class TestPropertiesConfig {
+class TestPropertiesConfig {
+    @Bean
+    FlywayTestProperties flywayProperties() {
+        return new FlywayTestProperties();
+    }
 }

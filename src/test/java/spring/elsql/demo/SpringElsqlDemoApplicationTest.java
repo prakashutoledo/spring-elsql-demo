@@ -14,7 +14,7 @@ import org.springframework.boot.SpringApplication;
  * 
  * @since 1.0
  */
-class SpringElsqlDemoApplicationTests {
+class SpringElsqlDemoApplicationTest {
 
     @Test
     void contextLoads() {

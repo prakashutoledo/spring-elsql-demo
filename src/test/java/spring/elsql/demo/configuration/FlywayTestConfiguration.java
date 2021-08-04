@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 /**
@@ -22,15 +23,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  * 
  * @since 1.0
  */
-@Configuration
-@EnableConfigurationProperties(FlywayTestProperties.class)
 @ConditionalOnMissingBean(value = { Flyway.class, DataSource.class, NamedParameterJdbcTemplate.class })
+@Import(TestPropertiesConfig.class)
 public class FlywayTestConfiguration {
-    @Bean
-    FlywayTestProperties flywayProperties() {
-        return new FlywayTestProperties();
-    }
-
     @Bean(destroyMethod = "clean")
     public Flyway Flyway(FlywayTestProperties flywayProperties) {
         String flywaySchemaName = String.format("%s_%d", flywayProperties.getSchema(), System.currentTimeMillis());
