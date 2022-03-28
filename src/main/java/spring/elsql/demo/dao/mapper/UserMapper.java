@@ -23,6 +23,10 @@ public class UserMapper implements RowMapper<User> {
      * A singleton user mapper
      */
     public static final UserMapper USER_MAPPER = new UserMapper();
+    
+    private UserMapper() {
+        // private initialization
+    }
 
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
