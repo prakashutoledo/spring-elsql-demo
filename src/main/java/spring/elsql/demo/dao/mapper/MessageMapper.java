@@ -21,13 +21,17 @@ public class MessageMapper implements RowMapper<Message> {
      * A singleton message mapper
      */
     public static final MessageMapper MESSAGE_MAPPER = new MessageMapper();
+    
+    private MessageMapper() {
+        // private initialization
+    }
 
     @Override
-    public Message mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Message mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         var message = new Message();
-        message.setId(rs.getLong(MESSAGE_ID));
-        message.setUserId(rs.getLong(USER_ID));
-        message.setDetails(rs.getString(MESSAGE_DETAILS));
+        message.setId(resultSet.getLong(MESSAGE_ID));
+        message.setUserId(resultSet.getLong(USER_ID));
+        message.setDetails(resultSet.getString(MESSAGE_DETAILS));
         return message;
     }
 }

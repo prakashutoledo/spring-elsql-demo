@@ -23,15 +23,19 @@ public class UserMapper implements RowMapper<User> {
      * A singleton user mapper
      */
     public static final UserMapper USER_MAPPER = new UserMapper();
+    
+    private UserMapper() {
+        // private initialization
+    }
 
     @Override
-    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public User mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         var user = new User();
-        user.setId(rs.getLong(USER_ID));
-        user.setFirstName(rs.getString(FIRST_NAME));
-        user.setMiddleInitial(rs.getString(MIDDLE_INITIAL));
-        user.setLastName(rs.getString(LAST_NAME));
-        user.setEmail(rs.getString(EMAIL));
+        user.setId(resultSet.getLong(USER_ID));
+        user.setFirstName(resultSet.getString(FIRST_NAME));
+        user.setMiddleInitial(resultSet.getString(MIDDLE_INITIAL));
+        user.setLastName(resultSet.getString(LAST_NAME));
+        user.setEmail(resultSet.getString(EMAIL));
         return user;
     }
 }
