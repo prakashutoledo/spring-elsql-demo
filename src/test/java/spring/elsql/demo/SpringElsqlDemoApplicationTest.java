@@ -21,7 +21,7 @@ class SpringElsqlDemoApplicationTest {
         try(var mockedSpring = mockStatic(SpringApplication.class)) {
             var args = new String[] { "test" };
             SpringElsqlDemoApplication.main(args);
-            mockedSpring.verify(() -> SpringApplication.run(SpringElsqlDemoApplication.class, args));
+            mockedSpring.verify(() -> SpringApplication.run(SpringElsqlDemoApplication.class, new String[] { "test" }));
         }
     }
 }

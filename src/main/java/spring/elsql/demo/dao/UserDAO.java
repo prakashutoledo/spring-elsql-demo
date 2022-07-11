@@ -47,8 +47,8 @@ public class UserDAO extends AbstractMySqlDAO {
      */
     public User createUser(final User user) {
         MapSqlParameterSource params = toParamSource(FIRST_NAME, user.getFirstName())
-                .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
-                .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
+            .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
+            .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
 
         var keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(toSqlString("createUser", params), params, keyHolder);
@@ -64,8 +64,8 @@ public class UserDAO extends AbstractMySqlDAO {
      */
     public void updateUser(final User user) {
         MapSqlParameterSource params = toParamSource(USER_ID, user.getId()).addValue(FIRST_NAME, user.getFirstName())
-                .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
-                .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
+            .addValue(LAST_NAME, user.getLastName()).addValue(EMAIL, user.getEmail())
+            .addValue(MIDDLE_INITIAL, user.getMiddleInitial());
         jdbcTemplate.update(toSqlString("updateUser", params), params);
     }
 
@@ -77,10 +77,13 @@ public class UserDAO extends AbstractMySqlDAO {
      * @return a list of user matching filters
      */
     public List<User> getUser(UserGetRequest request) {
-        request = Optional.ofNullable(request).orElseGet(UserGetRequest::new);
+        if (request == null) {
+            request = new UserGetRequest();
+        }
         MapSqlParameterSource params = toParamSource("userIds", request.getUserIds())
-                .addValue("firstNames", request.getFirstNames()).addValue("lastNames", request.getLastNames())
-                .addValue("emails", request.getEmails());
+            .addValue("firstNames", request.getFirstNames())
+            .addValue("lastNames", request.getLastNames())
+            .addValue("emails", request.getEmails());
         return jdbcTemplate.query(toSqlString("getUser", params), params, USER_MAPPER);
     }
 

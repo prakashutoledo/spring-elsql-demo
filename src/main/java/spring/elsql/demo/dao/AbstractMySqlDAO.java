@@ -34,18 +34,7 @@ public abstract class AbstractMySqlDAO {
      */
     protected AbstractMySqlDAO(DataSource datasource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(datasource);
-        this.elsqlBundle = ElSqlBundle.of(MYSQL, this.getClass());
-    }
-
-    /**
-     * Find the matching fragment name without specific parameters in elsql if
-     * present
-     * 
-     * @param fragmentName a fragment name to search in elsql bundle
-     * @return a sql string for matching given fragment name
-     */
-    public String toSqlString(String fragmentName) {
-        return this.elsqlBundle.getSql(fragmentName);
+        this.elsqlBundle = ElSqlBundle.of(MYSQL, getClass());
     }
 
     /**
@@ -58,15 +47,15 @@ public abstract class AbstractMySqlDAO {
      * @return a matched sql string from given fragment name
      */
     public String toSqlString(String fragmentName, SqlParameterSource paramSource) {
-        return this.elsqlBundle.getSql(fragmentName, paramSource);
+        return elsqlBundle.getSql(fragmentName, paramSource);
     }
 
     /**
-     * Creates a new map sql paramater source from given key and value pair
+     * Creates a new map sql parameter source from given key and value pair
      * 
-     * @param key   a key for sql paramater source
+     * @param key   a key for sql parameter source
      * @param value a value to substitute for given key
-     * @return a newly created Spring map sql paramater source
+     * @return a newly created Spring map sql parameter source
      */
     public MapSqlParameterSource toParamSource(String key, Object value) {
         return new MapSqlParameterSource(key, value);
@@ -85,8 +74,7 @@ public abstract class AbstractMySqlDAO {
     protected <T extends BaseIdDomain> Optional<T> findById(String fragmentName, SqlParameterSource paramSource,
             RowMapper<T> rowMapper) {
         try {
-            return Optional
-                    .of(jdbcTemplate.queryForObject(toSqlString(fragmentName, paramSource), paramSource, rowMapper));
+            return Optional.ofNullable(jdbcTemplate.queryForObject(toSqlString(fragmentName, paramSource), paramSource, rowMapper));
         } catch (DataAccessException dae) {
             return Optional.empty();
         }

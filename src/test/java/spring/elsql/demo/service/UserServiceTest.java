@@ -17,6 +17,7 @@ import spring.elsql.demo.dao.MessageDAO;
 import spring.elsql.demo.dao.UserDAO;
 import spring.elsql.demo.domain.Message;
 import spring.elsql.demo.domain.User;
+import spring.elsql.demo.domain.UserGetRequest;
 
 /**
  * Service test for User
@@ -112,5 +113,29 @@ class UserServiceTest {
                 "Throws Exception");
         assertNotNull(exception, "Exception should not be null");
         assertEquals("Unable to delete user: 3", exception.getMessage(), "Exception message");
+    }
+
+    @Test
+    void getUserIsEmpty() {
+        when(userDAO.getUser(any())).thenReturn(List.of());
+        var users = userService.getUser(null);
+
+        assertTrue(users.isEmpty(), "Retrieved user is empty");
+        verifyNoInteractions(messageDAO);
+    }
+
+    @Test
+    void getUserIsNotEmpty() {
+        User user = new User();
+        user.setId(1L);
+        var expectedUsers = List.of(user);
+
+        when(userDAO.getUser(any())).thenReturn(expectedUsers);
+        when(messageDAO.findMessageById(eq(1L))).thenReturn(Optional.of(new Message()));
+
+        var users = userService.getUser(new UserGetRequest());
+        assertFalse(users.isEmpty(), "Users is noy empty");
+        assertNotNull(users, "User shouldn't be null");
+        assertEquals(expectedUsers, users, "Retrieved user should match");
     }
 }

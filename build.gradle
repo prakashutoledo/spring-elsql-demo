@@ -48,11 +48,11 @@ dependencies {
 }
 
 jar {
-    exclude "*.sample"
+    exclude "*.ignore.*"
 }
 
 bootJar {
-    exclude "*.sample"
+    exclude "*.ignore.*"
 }
 
 bootRun {
